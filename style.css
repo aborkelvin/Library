@@ -1,0 +1,30 @@
+body{
+    height: 100vh;
+    background-color:lightsteelblue;
+}
+
+.disp{
+    border: 2px solid rgb(26, 25, 25);
+    width: 20vw;
+    height: 25vh;
+    padding-left: 3px;
+    background-color: rebeccapurple;
+}
+.disp>input{
+    border-radius: 5px;
+    margin: 10px;
+}
+.intake{
+    display: block;
+}
+
+.btn{
+    margin: 10px;
+}
+.container{
+    height: auto;
+    display: flex;
+    gap:50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
