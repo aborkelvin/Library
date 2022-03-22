@@ -8,24 +8,29 @@ const book = function(title,author,pages,read){
             return title +' by '+ author + ', '+pages+' ,'+read;
     }
 }
+
+const myform = document.querySelector('#myform');
 const container = document.querySelector('.container');
-let submitbtn;
 let click = 0; 
 
+
 //function below creates the div and inputs to collect the data
-function addbook(){
-    
+function addbook(){ 
     //These initial lines of codes prevents adding a new book with filling and submitting the previous ones details
     let check = document.querySelectorAll('.disp');
-    if(check){
-        for(let i = 0;i<check.length;i++){
-            let checkwell = document.querySelectorAll('.biden');        
-            if(!checkwell[i].value){
+    let sub = document.querySelectorAll('.fixate');
+    console.log(sub);
+    if(check.length>=1){
+        let subs = Array.from(sub);
+        console.log(subs);
+        console.log(check);
+        for(let i = 0;i<check.length;i++){            
+            let checkwell = document.querySelectorAll('.biden');
+            if(checkwell>=1){
+                if(!checkwell[i].value){
                 alert('fill the current card')
                 return;
-            }else if( click < i+1 ){
-                alert('submit the current card');
-                return
+                }
             }
         }
     }
@@ -37,7 +42,8 @@ function addbook(){
     let pages = document.createElement('input');
     let read = document.createElement('input');
     let label = document.createElement('label');
-    submitbtn = document.createElement('button');
+    label.classList.add('labile');
+    let submitbtn = document.createElement('button');
     submitbtn.innerText= 'Submit';
     submitbtn.classList.add('fixate');
     title.classList.add('intake','biden');
@@ -49,10 +55,12 @@ function addbook(){
     Object.assign(title,{
         type:"text",
         placeholder:"title",
+        required:true
     })
     Object.assign(author,{
         type:"text",
-        placeholder:"author"
+        placeholder:"author",
+        required:true
     })
 
     Object.assign(pages,{
@@ -60,41 +68,101 @@ function addbook(){
         placeholder:"pages"
     })
     Object.assign(read,{
-        type:"checkbox",
-        value:"yes"
+        id: 'chckbx',
+        type:"checkbox"
+    })
+    Object.assign(submitbtn,{
+        className: 'intake'
     })
     label.innerText = 'Have you read this?';
-
+    
     div.append(title, author, pages,label,read,submitbtn);
     container.appendChild(div);
-    submitbtn.addEventListener('click', function(){
+    
+    
+    submitbtn.addEventListener('click', function(){  
+        accept(div,title,author,pages,read);        
         
-        accept(title,author,pages,read);
-        click = click+1;
-        console.log(click);
     });
     
 }
-addbook();
 
 
-submitbtn = document.querySelectorAll('.fixate');
-/* submitbtn.addEventListener('click', accept); */
 let name;
 
-function accept(title,author,pages,read){
+
+function accept(div,title,author,pages,read){
     let whats = title.value;
     let whos = author.value;
     let whens = pages.value;
-    let whys = read.value
+    let whys = read.checked;
+    if(whys == true){
+        whys = 'Read';
+    }else{
+        whys = 'Not read yet'
+    }
     name = new book(whats,whos,whens,whys);
-    alert(name.info());
-    library.push(name)
+    library.push(name);
+
+
+    //To remove the form elements and create the card displaying details
+    while(div.firstChild){
+        div.removeChild(div.firstChild);
+    }
+    let head = document.createElement('h1');
+    let middle = document.createElement('h2');
+    let below = document.createElement('h2');
+    let end = document. createElement('h2');
+    let del = document.createElement('button');
+    let readstat = document.createElement('button');
+
+    Object.assign(head,{
+        className: 'header',
+        innerText :whats
+    })
+    Object.assign(middle,{
+        className: 'middle',
+        innerText : `Author: ${whos}`
+    })
+    Object.assign(below,{
+        className: 'below',
+        innerText : `Pages: ${whens}`
+    })
+    Object.assign(end,{
+        className:'end',
+        innerText: whys
+    })
+    Object.assign(del,{
+        className:'remove',
+        innerText:'delete'
+    })
+    Object.assign(readstat,{
+        className:'reading',
+        innerText: 'Change read status'
+    })
+
+    div.append(head,middle,below,end,del,readstat);
+    
+    //This removes the div/card when clicked
+    del.addEventListener('click',function(){
+        container.removeChild(div);
+        
+        //To remove it from the array loop through the array and check for the current title
+        for(let i = 0;i<library.length;i++){
+            if(library[i].title == whats){
+                library.splice(i,1);
+            }
+        }
+        
+    });
 }
 
 
+
+
+
+
 const btn = document.querySelector('.btn');
-const btn2 = document.querySelector('.btn2');
 btn.addEventListener('click',addbook);
 
 
