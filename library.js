@@ -19,19 +19,18 @@ function addbook(){
     //These initial lines of codes prevents adding a new book with filling and submitting the previous ones details
     let check = document.querySelectorAll('.disp');
     let sub = document.querySelectorAll('.fixate');
-    console.log(sub);
     if(check.length>=1){
         let subs = Array.from(sub);
-        console.log(subs);
-        console.log(check);
-        for(let i = 0;i<check.length;i++){            
-            let checkwell = document.querySelectorAll('.biden');
-            if(checkwell>=1){
-                if(!checkwell[i].value){
-                alert('fill the current card')
-                return;
+        let checkwell = document.querySelectorAll('.biden');
+        for(let i = 0;i<check.length;i++){                        
+            console.log(checkwell);
+                if(checkwell[i] !== undefined){
+                    if(!checkwell[i].value){
+                        alert('fill the current card')
+                        return;
+                    }
                 }
-            }
+            
         }
     }
 
