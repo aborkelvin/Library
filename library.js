@@ -9,10 +9,7 @@ const book = function(title,author,pages,read){
     }
 }
 
-const myform = document.querySelector('#myform');
 const container = document.querySelector('.container');
-let click = 0; 
-
 
 //function below creates the div and inputs to collect the data
 function addbook(){ 
@@ -34,6 +31,7 @@ function addbook(){
         }
     }
 
+    
     let div = document.createElement('div');
     div.classList.add('disp');
     let title = document.createElement('input');
@@ -80,13 +78,9 @@ function addbook(){
     
     
     submitbtn.addEventListener('click', function(){  
-        accept(div,title,author,pages,read);        
-        
+        accept(div,title,author,pages,read);              
     });
-    
 }
-
-
 let name;
 
 
@@ -95,11 +89,13 @@ function accept(div,title,author,pages,read){
     let whos = author.value;
     let whens = pages.value;
     let whys = read.checked;
-    if(whys == true){
-        whys = 'Read';
-    }else{
-        whys = 'Not read yet'
+    if(whos == ''){
+        whos = 'unknown'
     }
+    if(whens == ''){
+        whens = 'unknown'
+    }
+    
     name = new book(whats,whos,whens,whys);
     library.push(name);
 
@@ -111,7 +107,8 @@ function accept(div,title,author,pages,read){
     let head = document.createElement('h1');
     let middle = document.createElement('h2');
     let below = document.createElement('h2');
-    let end = document. createElement('h2');
+    var end = document. createElement('h2');
+    end.classList.add('endo');
     let del = document.createElement('button');
     let readstat = document.createElement('button');
 
@@ -127,10 +124,16 @@ function accept(div,title,author,pages,read){
         className: 'below',
         innerText : `Pages: ${whens}`
     })
-    Object.assign(end,{
-        className:'end',
-        innerText: whys
-    })
+    
+    
+    if(whys == true){
+        whys = 'Read';
+    }else{
+        whys = 'Not read yet'
+    }
+    end.innerText = whys; 
+    
+ 
     Object.assign(del,{
         className:'remove',
         innerText:'delete'
@@ -144,8 +147,7 @@ function accept(div,title,author,pages,read){
     
     //This removes the div/card when clicked
     del.addEventListener('click',function(){
-        container.removeChild(div);
-        
+        container.removeChild(div);        
         //To remove it from the array loop through the array and check for the current title
         for(let i = 0;i<library.length;i++){
             if(library[i].title == whats){
@@ -154,17 +156,29 @@ function accept(div,title,author,pages,read){
         }
         
     });
+
+    //This changes the read status when the buttion is clicked
+    readstat.addEventListener('click', function(){
+        if(end.innerText == 'Read'){
+            end.innerText = 'Not Read Yet'
+            //To be updating this information in the storage array
+            for(let i = 0;i<library.length;i++){
+                if(library[i].title == whats){
+                    library[i].read = false
+                }
+            }
+        }else{
+            end.innerText = 'Read';
+            //To be updating this information in the storage array
+            for(let i = 0;i<library.length;i++){
+                if(library[i].title == whats){
+                    library[i].read = true
+                }
+            }
+        }        
+    })
 }
-
-
-
-
 
 
 const btn = document.querySelector('.btn');
 btn.addEventListener('click',addbook);
-
-
-
-
-
