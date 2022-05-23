@@ -19,7 +19,7 @@ html,body{
     border: 2px solid rgb(26, 25, 25);
     border-radius: 25px;
     width: clamp(300px,20vw,400px);
-    height: 27vh;
+    height: 200px;
     padding-left: 10px;
     background-color: white;
     overflow: auto;
@@ -86,4 +86,10 @@ flex-wrap: wrap;
     border-radius: 10px;
     width: auto;
     height: 30px;
+}
+
+@media screen and (max-width:650px)  {
+    .disp{
+        margin: 0 auto;
+    }
 }
