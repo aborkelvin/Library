@@ -18,7 +18,8 @@ function addbook(){
     let sub = document.querySelectorAll('.fixate');
     if(check.length>=1){
         let subs = Array.from(sub);
-        let checkwell = document.querySelectorAll('.biden');
+
+        let checkwell = document.querySelectorAll('.biden'); //this selects all the previous titles and checks if any is empty, then it alerts and returns
         for(let i = 0;i<check.length;i++){                        
             console.log(checkwell);
                 if(checkwell[i] !== undefined){
@@ -81,6 +82,7 @@ function addbook(){
         accept(div,title,author,pages,read);              
     });
 }
+
 let name;
 
 
